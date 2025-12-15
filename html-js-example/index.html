@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pulpo Ar Plusgin SkinAI V3</title>
+  <link rel="stylesheet" href="common.css">
+  <link rel="stylesheet" href="index.css">
+  <script src="https://cdn.jsdelivr.net/npm/@pulpoar/plugin-sdk@latest/dist/index.iife.js"></script>
+</head>
+<body>
+  <!-- Navigation Header -->
+  <div class="main-nav">
+    <div class="nav-content">
+      <h1 class="nav-title">Pulpo AR SkinAI V3 Demo</h1>
+    </div>
+  </div>
+
+  <!-- Landing Page Content -->
+  <div class="page active">
+    <div class="container">
+      <!-- Main Content Grid -->
+      <div class="content">
+      <!-- Left: Iframe Container -->
+      <div class="iframe-container">
+        <!-- Replace iframe src with your own plugin URL -->
+        <iframe
+          id="pulpo-vto"
+          src="https://plugin.pulpoar.com/skinai/demo"
+          allow="camera *"
+          title="Pulpo AR SkinAI Demo"
+        ></iframe>
+      </div>
+
+      <!-- Right: Events  -->
+      <div class="events-panel">
+        <!-- Collapse Button -->
+        <button class="collapse-button" onclick="toggleSidebar()" title="Collapse sidebar">
+          <span class="collapse-icon">◀</span>
+        </button>
+
+        <!-- Tab Navigation -->
+        <div class="tab-navigation">
+          <button class="tab-button active" onclick="switchTab('events')">Events</button>
+        </div>
+
+        <!-- Events Tab Content -->
+        <div id="events-tab" class="tab-content active">
+          <div class="events-header">
+            <h2>
+              Event Log
+              <span class="event-count-badge" id="event-count">0</span>
+            </h2>
+            <button class="clear-button" onclick="clearEvents()">Clear Events</button>
+            <div class="status-indicator">
+              <span class="status-dot"></span>
+              <span>Listening for events...</span>
+            </div>
+          </div>
+
+          <div class="events-log" id="events-log">
+            <div class="empty-state">
+              <div class="empty-state-icon">📭</div>
+              <div class="empty-state-text">No events yet</div>
+              <div class="empty-state-subtext">Interact with the AR experience to see events appear here</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <script type="module" src="index.js"></script>
+</body>
+</html>
