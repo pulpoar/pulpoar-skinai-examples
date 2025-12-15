@@ -152,34 +152,14 @@ All events are logged on the demo page with timestamps and payloads.
   { problem: string, isSelfie: boolean }
   ```
 
-### Actions
-
-**`setPath(path)`**
-
-Navigate to specific pages within the plugin.
-
-Paths: `opening`, `onboarding`, `questionnaire`, `take-photo`, `result`
-
-```javascript
-pulpoar.skinai.setPath('opening')      // Home/opening page
-pulpoar.skinai.setPath('onboarding')   // Onboarding carousel
-pulpoar.skinai.setPath('questionnaire') // Skin questionnaire
-pulpoar.skinai.setPath('take-photo')   // Photo capture
-pulpoar.skinai.setPath('result')       // Analysis results
-```
-
 ## Demo Page Features
 
 **Left Panel: SkinAI Experience**
 - Full-screen iframe with SkinAI plugin
 - Complete flow: onboarding → questionnaire → photo → analysis → recommendations
 
-**Right Panel: Events & Actions**
+**Right Panel: Events**
 - **Events Tab**: Real-time event logging with timestamps and payload details
-- **Actions Tab**: SDK controls
-  - Product Management: Simulated add to cart
-  - Navigation Control: Navigate to different pages
-  - Camera Control: Request/stop camera
 
 ## Development
 
@@ -212,7 +192,7 @@ npm run lint
 
 2. **Event Subscription**: Subscribe to events before the SDK initializes:
    ```javascript
-   pulpoar.skinai.onReady(data => {
+   pulpoar.onReady(data => {
      console.log('SDK Ready:', data)
    })
    ```
@@ -221,14 +201,14 @@ npm run lint
 
 4. **Product Integration**: Handle product events to integrate with your e-commerce platform:
    ```javascript
-   pulpoar.skinai.onAddToCart(data => {
+   pulpoar.onAddToCart(data => {
      // Add products to your cart
      console.log('Products to add:', data.products)
      console.log('Source:', data.source) // "routines" or "products"
      console.log('Experience:', data.experience) // "skin-analysis" or "ai-simulation"
    })
 
-   pulpoar.skinai.onProductVisit(data => {
+   pulpoar.onProductVisit(data => {
      // Navigate to product page
      window.location.href = `/product/${data.product.id}`
    })
