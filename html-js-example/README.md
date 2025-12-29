@@ -2,11 +2,16 @@
 
 HTML/JavaScript integration example demonstrating SkinAI v3 plugin integration with event monitoring, SDK actions, and product interactions.
 
+> **📚 SDK Documentation**: For complete event documentation, type definitions, and integration guides, see the [main README](../README.md).
+
 ## Features
 
 - **Full SkinAI v3 integration**: Complete skin analysis experience
-- **Event logging**: Real-time monitoring of 18+ SDK events
-- **SDK action controls**: Camera permissions
+- **Event logging**: Real-time monitoring of 17 SDK events
+- **Collapsible event panel**: Toggle sidebar to maximize viewing area
+- **SDK action controls**: Camera permissions, product interactions
+- **Clean, declarative code**: Organized with constants, state management, and single-responsibility functions
+- **Hot module replacement**: Powered by Vite for instant updates
 - **Product integration**: AddToCart, ProductVisit, ProductTryClick event handlers
 
 ## Quick Start
@@ -33,212 +38,12 @@ skinai-html-js-example/
 
 ## SDK Integration Reference
 
-### Type Definitions
+All 17 SDK events are logged on the demo page with timestamps and full payload details.
 
-Below are the TypeScript-style interface definitions for objects used in event payloads. These types are based on the official `@pulpoar/plugin-sdk` source code and are provided for reference when working with the JavaScript SDK.
-
-#### ProductWithoutRoutines
-Product object without nested routine data. This is the type returned in SDK events.
-```javascript
-{
-  id: string,
-  name: string | null,
-  brand: string,              // Brand ID or name
-  category: string,            // Category ID
-  customSlug: string,
-  price: number,
-  problems: Array<{
-    issue: string,
-    name: string
-  }>,
-  aiSimulator?: Array<{       // Optional AI simulator configuration
-    name: string,
-    levels: Array<{
-      name: string,
-      image: string,
-      masks: Array<{
-        name: string,
-        opacity: number,
-        smooth: number
-      }>
-    }>
-  }>
-  // Additional product fields from your configuration
-}
-```
-
-#### RoutineWithoutProducts
-Routine object without nested product data. This is the type returned in SDK events.
-```javascript
-{
-  id: string,
-  name: string | null,
-  slug: string | null,
-  stepName: string | null,
-  sort: number | null,
-  date_created: string | null,
-  date_updated: string | null
-  // Additional routine fields from your configuration
-}
-```
-
-#### SkinaiQuestion
-Question object structure used in questionnaire events.
-```javascript
-{
-  id: string,
-  header: string,
-  description: string,
-  answers: SkinaiApiAnswer[],
-  hasAnswerImage: boolean,
-  hasAnswerDescription: boolean,
-  selectionType: "single" | "multiple",
-  position: { x: number, y: number },
-  image?: string,
-  initial: boolean,
-  sort: number
-}
-```
-
-#### SkinaiApiAnswer
-Answer object for questionnaire responses.
-```javascript
-{
-  id: string,
-  header?: string,
-  description?: string,
-  image?: string,
-  position: { x: number, y: number },
-  target?: string
-}
-```
-
-#### SkinIssue
-Skin issue/problem detected in analysis.
-```javascript
-{
-  id: string,
-  name: string,
-  score: number  // Score value (typically 0-100)
-}
-```
-
-### Events (17 total)
-
-All events are logged on the demo page with timestamps and payloads.
-
-**Core**
-- `onReady` - SDK initialized with project data
-  ```javascript
-  { projectKey: string, themeType: string }
-  ```
-
-**Navigation**
-- `onPathChange` - Navigation path changed
-  ```javascript
-  { referer: string, path: string }
-  ```
-
-**Onboarding**
-- `onOnboardingCarouselChange` - Onboarding carousel step changed
-  ```javascript
-  { fromStep: number, toStep: number }
-  ```
-
-**Questionnaire**
-- `onQuestionnaireComplete` - User completed skin questionnaire
-  ```javascript
-  {
-    questionsAndAnswers: Array<{
-      question: SkinaiQuestion,
-      answers: SkinaiApiAnswer[]
-    }>
-  }
-  ```
-
-**Photo & Analysis**
-- `onPhotoUse` - Photo selected for analysis
-- `onPhotoRetake` - User requested to retake photo
-- `onSkinScoreCalculate` - Skin analysis completed
-  ```javascript
-  {
-    skinHealthScore: number,
-    isSelfie: boolean,
-    issues: SkinIssue[]
-  }
-  ```
-
-**Experience**
-- `onExperienceChange` - User switched between experiences
-  ```javascript
-  { experience: "skin-analysis" | "ai-simulation" }
-  ```
-
-**Recommendations**
-- `onRecommendationsReceive` - Product recommendations received
-  ```javascript
-  {
-    products: ProductWithoutRoutines[],
-    routines: RoutineWithoutProducts[],
-    isSelfie: boolean
-  }
-  ```
-
-**Product Interactions**
-- `onProductTryClick` - User clicked to try a product
-  ```javascript
-  { product: ProductWithoutRoutines }
-  ```
-
-- `onAISimulatorAdjust` - User adjusted AI simulator
-  ```javascript
-  {
-    product: ProductWithoutRoutines,
-    problem: string,
-    level: number
-  }
-  ```
-
-- `onAddToCart` - User added product(s) to cart
-  ```javascript
-  {
-    products: ProductWithoutRoutines[],
-    routine?: RoutineWithoutProducts,
-    source: "routines" | "products",
-    experience: "skin-analysis" | "ai-simulation"
-  }
-  ```
-
-- `onProductVisit` - User visited product page
-  ```javascript
-  {
-    product: ProductWithoutRoutines,
-    routine?: RoutineWithoutProducts,
-    isSelfie: boolean,
-    source: "routines" | "products",
-    experience: "skin-analysis" | "ai-simulation"
-  }
-  ```
-
-**Email**
-- `onEmailButtonClick` - User clicked email button
-  ```javascript
-  { isSelfie: boolean }
-  ```
-
-- `onEmailSend` - User sent email with results
-  ```javascript
-  { isSelfie: boolean }
-  ```
-
-**Camera**
-- `onCameraPermissionDeny` - Camera permission denied
-
-**UI Interactions**
-- `onProblemChipClick` - User clicked on a skin problem chip
-  ```javascript
-  { problem: string, isSelfie: boolean }
-  ```
+For complete event documentation with payloads and usage examples, see:
+- **[SDK Events Reference](../README.md#sdk-events-17-total)** - All 17 events with detailed payloads
+- **[Type Definitions](../README.md#type-definitions)** - ProductWithoutRoutines, RoutineWithoutProducts, etc.
+- **[Integration Guide](../README.md#integration-guide)** - Step-by-step setup instructions
 
 ## Demo Page Features
 
@@ -248,6 +53,29 @@ All events are logged on the demo page with timestamps and payloads.
 
 **Right Panel: Events**
 - **Events Tab**: Real-time event logging with timestamps and payload details
+- **Collapsible sidebar**: Click the arrow button to toggle the events panel
+
+## Development
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+
+# Format code
+npm run format
+
+# Lint code
+npm run lint
+```
 
 ## Integration Notes
 
