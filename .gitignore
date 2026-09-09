@@ -5,3 +5,18 @@ package-lock.json
 .env
 .vite
 dist/
+
+# Flutter
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+flutter-skinai-example/.dart_tool/
+flutter-skinai-example/.flutter-plugins
+flutter-skinai-example/.flutter-plugins-dependencies
+flutter-skinai-example/build/

@@ -16,6 +16,9 @@ Cross-platform mobile integration using React Native and WebView with TypeScript
 ### [Swift/iOS Example](./swift-skinai-example)
 Native iOS integration using Swift and WKWebView.
 
+### [Flutter Example](./flutter-skinai-example)
+Cross-platform mobile integration using Flutter and WebView with a JavaScript ↔ Dart bridge.
+
 ## Quick Links
 
 - [Type Definitions](#type-definitions)
@@ -508,6 +511,13 @@ val script = """
 webView.evaluateJavascript(script, null)
 ```
 
+**Flutter (WebView):**
+```dart
+// Injected automatically by PulpoARView after page load.
+// Events are forwarded to Dart via the PulpoAR JavaScriptChannel.
+await controller.runJavaScript(getInitialSdkScript());
+```
+
 ### 2. Subscribe to Events
 
 Events must be subscribed **before** the SDK initializes.
@@ -572,6 +582,17 @@ val subscribeScript = """
 webView.settings.javaScriptEnabled = true
 webView.settings.domStorageEnabled = true
 webView.loadUrl("https://plugin.pulpoar.com/skinai/YOUR_PROJECT_SLUG")
+```
+
+**Flutter:**
+```dart
+PulpoARView(
+  plugin: 'skinai',
+  slug: 'YOUR_PROJECT_SLUG',
+  onEvent: (event, payload) {
+    // Handle onAddToCart, onRecommendationsReceive, onProductVisit, etc.
+  },
+);
 ```
 
 ### 4. Handle Product Events
