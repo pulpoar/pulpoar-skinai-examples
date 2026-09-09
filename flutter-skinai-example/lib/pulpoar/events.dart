@@ -19,6 +19,7 @@ const skinAiEvents = <String>[
   'onEmailSend',
   'onCameraPermissionDeny',
   'onProblemChipClick',
+  'onExternalProductView',
 ];
 
 /// Callback invoked when a SkinAI event is received from the WebView.

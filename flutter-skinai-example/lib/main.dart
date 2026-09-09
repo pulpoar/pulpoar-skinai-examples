@@ -44,6 +44,7 @@ class _SkinAiHomePageState extends State<SkinAiHomePage> {
     final line = '[$event] $pretty';
 
     debugPrint('[SkinAI] $line');
+    if (!mounted) return;
     setState(() {
       _eventLog.insert(0, line);
       if (_eventLog.length > 50) {
@@ -67,6 +68,10 @@ class _SkinAiHomePageState extends State<SkinAiHomePage> {
         break;
       case 'onSkinScoreCalculate':
         // Store analysis results for the logged-in user.
+        break;
+      case 'onExternalProductView':
+        // payload['skinAnalysisResult'] + payload['questionsAndAnswers']
+        // for a product viewed outside the WebView (e.g. deep link out).
         break;
     }
   }

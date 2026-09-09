@@ -12,5 +12,6 @@ void main() {
     expect(script, contains("pulpoar['onAddToCart']"));
     expect(script, contains("pulpoar['onRecommendationsReceive']"));
     expect(skinAiEvents, contains('onProductVisit'));
+    expect(skinAiEvents, contains('onExternalProductView'));
   });
 }

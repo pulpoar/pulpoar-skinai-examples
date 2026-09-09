@@ -130,8 +130,17 @@ class _PulpoARViewState extends State<PulpoARView> {
         return;
       }
 
-      final event = decoded['event'] as String?;
-      if (event == null || event.isEmpty) return;
+      final rawEvent = decoded['event'];
+      if (rawEvent is! String || rawEvent.isEmpty) {
+        debugPrint('[SkinAI] Bridge message missing string event field: '
+            '${message.message}');
+        return;
+      }
+      final event = rawEvent;
+
+      if (!widget.events.contains(event)) {
+        debugPrint('[SkinAI] Unhandled/unknown SDK event: $event');
+      }
 
       final rawPayload = decoded['payload'];
       final payload = rawPayload is Map<String, dynamic>
